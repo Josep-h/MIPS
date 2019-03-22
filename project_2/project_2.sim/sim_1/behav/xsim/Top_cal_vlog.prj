@@ -1,0 +1,23 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../project_1/project_1.srcs/sources_1/new/ADDER.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/ALU.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/ALU_DECODER.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/DATAPATH.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/DATA_MEMORY.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/INSTR_MEMORY.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/MAIN_DECODER.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/MIPS.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/MUX2_1.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/PROGRAM_COUNTER.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/REGISTER_FILE.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/SIGN_EXTEND.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/SL2.v" \
+"../../../../../project_1/project_1.srcs/sources_1/new/TOP.v" \
+"../../../../../project_1/project_1.srcs/sim_1/new/sim_cal.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

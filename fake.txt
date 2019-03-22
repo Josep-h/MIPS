@@ -1,0 +1,64 @@
+0: 0
+s0: N
+s1: location
+s2: num
+s3: nums[i]
+s4: ans
+s5: i
+
+sub $0, $0, $0
+add $s1,$0,$0
+add $s2,$0,$0
+add $s5,$0,$0
+L1:
+lw $s3,0($s1)
+nop
+slt $s4, $s2, $s3
+beq $s4, $0, L2
+lw $s2,0($s1)
+nop
+L2:
+addi $s5, $s5, 1
+addi $s1, $s1, 16
+bne $s0, $s5, L1
+sw $s2,0($s1)
+hlt
+sub $0,$0,$0
+and $s0,$0,$0
+or $s1,$s0,$0
+
+#input
+addi $s2,$s1,0 
+sw $s2,0($s1)
+addi $s1,$s1,4
+addi $s0,$s0,1
+j 0
+-------------------------------------
+sub $0, $0, $0
+add $s1,$0,$0
+add $s2,$0,$0
+add $s5,$0,$0
+L1:
+lw $s3,0($s1)
+nop
+slt $s4, $s2, $s3
+beq $s4, $0, L2
+lw $s2,0($s1)
+nop
+L2:
+addi $s5, $s5, 1
+addi $s1, $s1, 16
+bne $s0, $s5, L1
+sw $s2,0($s1)
+hlt
+
+sub $0,$0,$0
+addi $s0,$0,0 //s0=0
+or $s1,$0,$0 //s1=0
+
+#input
+addi $s2,$0,0 //s1=0
+sw $s2,0($s1)
+addi $s1,$s1,16
+addi $s0,$s0,1
+j 0
