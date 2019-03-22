@@ -17,6 +17,7 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+set_param xicom.use_bs_reader 1
 create_project -in_memory -part xc7a100tcsg324-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -29,21 +30,22 @@ set_property target_language Verilog [current_project]
 set_property ip_output_repo {c:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.cache/ip} [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/ADDER.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/ALU.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/ALU_DECODER.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/DATAPATH.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/DATA_MEMORY.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/INSTR_MEMORY.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/MAIN_DECODER.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/MIPS.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/MUX2_1.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/PROGRAM_COUNTER.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/REGISTER_FILE.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/SIGN_EXTEND.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/SL2.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/TOP.v}
-  {C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/sources_1/new/main.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/ADDER.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/ALU.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/ALU_DECODER.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/DATAPATH.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/DATA_MEMORY.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/INSTR_MEMORY.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/MAIN_DECODER.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/MIPS.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/MUX2_1.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/PROGRAM_COUNTER.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/REGISTER_FILE.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/SIGN_EXTEND.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/SL2.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/TOP.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/clkdiv.v}
+  {C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/sources_1/new/main.v}
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -53,8 +55,8 @@ read_verilog -library xil_defaultlib {
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc {{C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/constrs_1/new/cons.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_1/project_1.srcs/constrs_1/new/cons.xdc}}]
+read_xdc {{C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/constrs_1/new/cons.xdc}}
+set_property used_in_implementation false [get_files {{C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.srcs/constrs_1/new/cons.xdc}}]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]

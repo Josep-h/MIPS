@@ -27,19 +27,23 @@ module Top_cal();
         reg reset;
         reg load;
         reg [11:0] num;
-        reg [11:0] num_in;
+        // reg [11:0] num_in;
         TOP TOP_1(clk,reset,load,clear,num);
-        reg [31:0] reg0,reg_s0,reg_s1,reg_s2,reg_s3,reg_s4,reg_s5,pc,instr,branch_pc;
-        reg pc_src,t_nbranch,t_branch,t_zero;
+        // reg [31:0] reg0,reg_s0,reg_s1,
+        reg [31:0] reg_s2;
+        // reg [31:0] reg_s3,reg_s4,reg_s5;
+        reg [31:0] pc;
+        // reg [31:0] instr,branch_pc;
+        // reg pc_src,t_nbranch,t_branch,t_zero;
         always@(*)
             begin
-                reg0=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[0];
-                reg_s0=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[16];
-                reg_s1=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[17];
+                // reg0=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[0];
+                // reg_s0=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[16];
+                // reg_s1=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[17];
                 reg_s2=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[18];
-                reg_s3=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[19];
-                reg_s4=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[20];
-                reg_s5=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[21];
+                // reg_s3=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[19];
+                // reg_s4=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[20];
+                // reg_s5=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[21];
                 // RAM_1=TOP_1.INSTR_MEMORY_2.RAM[72];
                 // RAM_2=TOP_1.INSTR_MEMORY_2.RAM[76];
                 // RAM_3=TOP_1.INSTR_MEMORY_2.RAM[80];
@@ -49,9 +53,9 @@ module Top_cal();
                 // RAM_7=TOP_1.INSTR_MEMORY_2.RAM[96];
                 // RAM_8=TOP_1.INSTR_MEMORY_2.RAM[100];
                 // RAM_9=TOP_1.INSTR_MEMORY_2.RAM[104];
-                num_in=TOP_1.INSTR_MEMORY_2.num;
+                // num_in=TOP_1.INSTR_MEMORY_2.num;
                 pc=TOP_1.INSTR_MEMORY_2.a;
-                instr=TOP_1.INSTR_MEMORY_2.rd;
+                // instr=TOP_1.INSTR_MEMORY_2.rd;
             end
         initial
         begin
@@ -64,17 +68,17 @@ module Top_cal();
            #2 clk=~clk; //1
            #2 clk=~clk; //0
            #2 clear=~clear;clk=~clk;//clear=0, 1
-           #2 load=~load;clk=~clk;num=48; //0
+           #2 load=~load;clk=~clk;num=1; //0
            #2 clk=~clk; //1
-           #2 clk=~clk;num=74; //0
+           #2 clk=~clk;num=2; //0
            #2 clk=~clk;
-           #2 clk=~clk;num=17;
+           #2 clk=~clk;num=4;
            #2 clk=~clk;
-           #2 clk=~clk;num=101;
+           #2 clk=~clk;num=8;
            #2 clk=~clk;
-           #2 clk=~clk;num=79;
+           #2 clk=~clk;num=16;
            #2 clk=~clk;
-           #2 clk=~clk;num=34;
+           #2 clk=~clk;num=32;
            #2 clk=~clk;
            #2 load=~load;clk=~clk;
            #2 reset=~reset;

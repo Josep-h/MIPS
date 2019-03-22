@@ -26,8 +26,20 @@ module main(
     input load,
     input clear,
     input [11:0] num,
-    output [11:0] pc
+    output reg [7:0] pc,
+    output reg [7:0] reg_2
     );
-    TOP TOP_0(mclk,reset,load,clear,num);
-    assign pc=TOP_0.pc;
+    wire clk;
+    clkdiv CLKDIV_1(mclk,clk);
+    TOP TOP_0(clk,reset,load,clear,num);
+    always@(posedge clk,posedge reset)
+    begin
+      if(reset==1)
+        pc<=TOP_0.INSTR_MEMORY_2.ct;
+      else 
+        begin 
+          reg_2<=TOP_0.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[18];
+          pc<=TOP_0.INSTR_MEMORY_2.RAM[TOP_0.MIPS_1.pc];
+        end
+    end
 endmodule

@@ -32,7 +32,7 @@ module INSTR_MEMORY
     reg [31:0] RAM[255:0]; //memory of the instruction
     reg [7:0] ct;
     initial 
-        begin //TODO: here we have our initial files.
+        begin 
             RAM[0]= 32'b00000000000000000000000000100010; //sub
             RAM[4]= 32'b00000000000000001000100000100000; //add
             RAM[8]= 32'b00000000000000001001000000100000; //add
@@ -55,10 +55,10 @@ module INSTR_MEMORY
 
             //op
             RAM[60]=32'b00000000000000000000000000100010; //sub
-            RAM[64]=32'b00100000000100000000000000000001; //addi
+            RAM[64]=32'b00100000000100000000000000000000; //addi
             RAM[68]=32'b00000010000000001000100000100101; //or
             RAM[72]=32'b00001000000000000000000000000000; //j
-            // ct=72;
+            ct=72;
 
         end 
     always@(posedge clk)
@@ -74,6 +74,11 @@ module INSTR_MEMORY
                         RAM[ct+12]<=32'b00100010000100000000000000000001; //addi
                         RAM[ct+16]<=32'b00001000000000000000000000000000; //j
                         ct<=ct+16;
+                    end
+                else 
+                    begin
+                        ct<=ct;
+                        // RAM[ct]<=32'b00001000000000000000000000000000;
                     end
             end
     assign rd=RAM[a];
