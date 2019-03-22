@@ -28,6 +28,7 @@ module main(
     input [11:0] num,
     output [11:0] pc
     );
+    
     TOP TOP_0(mclk,reset,load,clear,num);
     assign pc=TOP_0.pc;
 endmodule
