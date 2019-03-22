@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-| Date         : Fri Mar 22 11:22:24 2019
+| Date         : Fri Mar 22 14:18:52 2019
 | Host         : JosephSurface running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file main_control_sets_placed.rpt
 | Design       : main
@@ -23,8 +23,8 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Number of unique control sets                            |     5 |
-| Unused register locations in slices containing registers |    11 |
+| Number of unique control sets                            |    42 |
+| Unused register locations in slices containing registers |   142 |
 +----------------------------------------------------------+-------+
 
 
@@ -34,9 +34,15 @@ Table of Contents
 +--------+--------------+
 | Fanout | Control Sets |
 +--------+--------------+
-|      1 |            1 |
-|     12 |            1 |
-|    16+ |            3 |
+|      1 |            3 |
+|      2 |            2 |
+|      5 |            1 |
+|     10 |            2 |
+|     11 |            5 |
+|     12 |            6 |
+|     13 |            3 |
+|     14 |           14 |
+|    16+ |            6 |
 +--------+--------------+
 
 
@@ -46,26 +52,63 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              33 |           25 |
-| No           | No                    | Yes                    |              12 |            5 |
+| No           | No                    | No                     |              58 |           42 |
+| No           | No                    | Yes                    |              31 |           15 |
 | No           | Yes                   | No                     |               0 |            0 |
-| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | No                     |             279 |          129 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |               0 |            0 |
+| Yes          | Yes                   | No                     |             130 |           50 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------------------------------------------+----------------------------------------------+------------------+------------------+----------------+
-|                    Clock Signal                    |                 Enable Signal                | Set/Reset Signal | Slice Load Count | Bel Load Count |
-+----------------------------------------------------+----------------------------------------------+------------------+------------------+----------------+
-|  TOP_0/MIPS_1/DATAPATH_3/ALU_12/tp_reg[31]_i_1_n_1 |                                              |                  |                1 |              1 |
-|  mclk_IBUF_BUFG                                    |                                              | reset_IBUF       |                5 |             12 |
-|  n_0_85_BUFG                                       |                                              |                  |               24 |             32 |
-|  mclk_IBUF_BUFG                                    |                                              |                  |                8 |             32 |
-|  mclk_IBUF_BUFG                                    | TOP_0/MIPS_1/DATAPATH_3/REGISTER_FILE_10/we3 |                  |               12 |             96 |
-+----------------------------------------------------+----------------------------------------------+------------------+------------------+----------------+
++---------------------------------------+-------------------------------------------+-------------------------------------------+------------------+----------------+
+|              Clock Signal             |               Enable Signal               |              Set/Reset Signal             | Slice Load Count | Bel Load Count |
++---------------------------------------+-------------------------------------------+-------------------------------------------+------------------+----------------+
+|  TOP_0/INSTR_MEMORY_2/pc_out_reg[7]_7 |                                           |                                           |                1 |              1 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[244][21]_i_1_n_1 | TOP_0/INSTR_MEMORY_2/RAM[244][21]_i_1_n_1 |                1 |              1 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[116][25]_i_1_n_1 |                                           |                1 |              1 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[252][31]_i_1_n_1 |                                           |                1 |              2 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[244][21]_i_1_n_1 |                                           |                2 |              2 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/ct                   | TOP_0/INSTR_MEMORY_2/ct[7]_i_1_n_1        |                2 |              5 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[12][11]_i_2_n_1  | TOP_0/INSTR_MEMORY_2/RAM[12][11]_i_1_n_1  |                2 |             10 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[140][11]_i_2_n_1 | TOP_0/INSTR_MEMORY_2/RAM[140][11]_i_1_n_1 |                2 |             10 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[4][11]_i_2_n_1   | TOP_0/INSTR_MEMORY_2/RAM[4][11]_i_1_n_1   |                4 |             11 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[132][11]_i_2_n_1 | TOP_0/INSTR_MEMORY_2/RAM[132][11]_i_1_n_1 |                2 |             11 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[240][11]_i_2_n_1 | TOP_0/INSTR_MEMORY_2/RAM[240][11]_i_1_n_1 |                2 |             11 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[180][25]_i_1_n_1 |                                           |                4 |             11 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[148][11]_i_2_n_1 | TOP_0/INSTR_MEMORY_2/RAM[148][11]_i_1_n_1 |                4 |             11 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[88][11]_i_2_n_1  | TOP_0/INSTR_MEMORY_2/RAM[88][11]_i_1_n_1  |                7 |             12 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[188][11]_i_2_n_1 | TOP_0/INSTR_MEMORY_2/RAM[188][11]_i_1_n_1 |                8 |             12 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[104][11]_i_2_n_1 | TOP_0/INSTR_MEMORY_2/RAM[104][11]_i_1_n_1 |                5 |             12 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[212][25]_i_1_n_1 |                                           |                9 |             12 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[136][11]_i_2_n_1 | TOP_0/INSTR_MEMORY_2/RAM[136][11]_i_1_n_1 |                6 |             12 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[8][11]_i_2_n_1   | TOP_0/INSTR_MEMORY_2/RAM[8][11]_i_1_n_1   |                5 |             12 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[232][27]_i_1_n_1 |                                           |                4 |             13 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[172][31]_i_1_n_1 |                                           |                3 |             13 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[236][25]_i_1_n_1 |                                           |                7 |             13 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[152][29]_i_1_n_1 |                                           |                6 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[120][29]_i_1_n_1 |                                           |                8 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[160][25]_i_1_n_1 |                                           |                3 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[228][25]_i_1_n_1 |                                           |                5 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[184][29]_i_1_n_1 |                                           |                6 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[200][29]_i_1_n_1 |                                           |                7 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[24][29]_i_1_n_1  |                                           |                7 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[216][29]_i_1_n_1 |                                           |               11 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[168][29]_i_1_n_1 |                                           |                4 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[224][25]_i_1_n_1 |                                           |                4 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[72][29]_i_1_n_1  |                                           |                6 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[40][29]_i_1_n_1  |                                           |                5 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[56][29]_i_1_n_1  |                                           |               12 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[164][25]_i_1_n_1 |                                           |                3 |             14 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/RAM[248][29]_i_1_n_1 |                                           |               11 |             16 |
+|  mclk_IBUF_BUFG                       |                                           |                                           |               19 |             25 |
+|  mclk_IBUF_BUFG                       |                                           | reset_IBUF                                |               15 |             31 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/we                   |                                           |                8 |             32 |
+|  n_0_1269_BUFG                        |                                           |                                           |               22 |             32 |
+|  mclk_IBUF_BUFG                       | TOP_0/INSTR_MEMORY_2/we3                  |                                           |               12 |             96 |
++---------------------------------------+-------------------------------------------+-------------------------------------------+------------------+----------------+
 
 

@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/13808/Documents/PJ Now/MIPScomputer_version/project_2/project_2.runs/impl_1'
+HD_PWD='C:/Users/13808/Documents/PJ Now/MIPCalulator/project_2/project_2.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
