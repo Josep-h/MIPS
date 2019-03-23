@@ -10,6 +10,7 @@ module DATAPATH(
 	input pc_src, mem_to_reg, alu_src,
 	input reg_write, reg_dist,
 	input jump,
+	input [4:0] shamt,
 	output [31:0] pc,
 	output [31:0] alu_out,
 	output [31:0] write_data,
@@ -49,7 +50,7 @@ SIGN_EXTEND SIGN_EXTEND_9(instr[15:0],sign_extend);
 REGISTER_FILE REGISTER_FILE_10(reg_write,clk,instr[25:21],instr[20:16],write_reg,mem_to_reg_result,src_A,write_data);
 
 //ALU
-ALU ALU_12(src_A,src_B,alu_control,zero,alu_out);
+ALU ALU_12(src_A,src_B,alu_control,shamt,zero,alu_out);
 
 //SL2 13
 SL2 SL_13(sign_extend,lf_13);

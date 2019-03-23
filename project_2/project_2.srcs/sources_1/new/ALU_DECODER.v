@@ -49,14 +49,14 @@ module ALU_DECODER(
                             6'b100111: alu_control<=4'b0011; //nor
                             6'b101011: alu_control<=4'b1000; //sltu
                             6'b100110: alu_control<=4'b1001; //xor
+                            6'b000000: alu_control<=4'b1010; //sll
+                            6'b000100: alu_control<=4'b1011; //slv
+                            6'b000011: alu_control<=4'b1100; //sra
+                            6'b000111: alu_control<=4'b1101; //srav
+                            6'b000010: alu_control<=4'b1110; //srl
+                            6'b000110: alu_control<=4'b1111; //srlv
                             
                             //add but not finish
-                            6'b000000: alu_control<=4'b0111; //sll
-                            6'b000100: alu_control<=4'b0111; //slv
-                            6'b000011: alu_control<=4'b0111; //sra
-                            6'b000111: alu_control<=4'b0111; //srav
-                            6'b000010: alu_control<=4'b0111; //srl
-                            6'b000110: alu_control<=4'b0111; //srlv
                             
                             default: alu_control<=4'bxxxx;
                         endcase

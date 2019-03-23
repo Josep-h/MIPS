@@ -24,7 +24,7 @@ module ALU(
     input [31:0] src_A,
     input [31:0] src_B,
     input [3:0] alu_control,
-    //input [4:0] shampt,
+    input [4:0] shamt,
     output zero,
     output reg [31:0] alu_result
     );
@@ -45,7 +45,13 @@ module ALU(
                 end
             8:alu_result <= src_A<src_B;  //sltu
             9:alu_result <= src_A^src_B;  //xor
-            10:alu_result <= src_A^src_B;  //sll
+            10:alu_result <= src_A<<shamt;  //sll
+            11:alu_result <= src_A<<src_B;  //slv
+            12:alu_result <= ($signed(src_A))>>>shamt;  //sra
+            13:alu_result <= ($signed(src_A))>>>src_B;  //srav
+            14:alu_result <= src_A>>shamt;  //srl
+            15:alu_result <= src_A>>src_B;  //srlv
+
         endcase
         assign zero = alu_result == 0;
 endmodule

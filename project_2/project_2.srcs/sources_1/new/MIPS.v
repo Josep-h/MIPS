@@ -36,8 +36,8 @@ module MIPS(
     wire jump;
     wire zero_out;// for bne
     xor XOR16(zero_out,nbranch,zero);
-    ALU_DECODER ALU_DECODER_1(instr[31:26],alu_op, instr[5:0], alu_control);
+    ALU_DECODER ALU_DECODER_1(instr[31:26],alu_op, instr[5:0],alu_control);
     MAIN_DECODER MAIN_DECODER_2(instr[31:26],mem_to_reg,mem_write,branch,nbranch,alu_src,reg_dist,reg_write,alu_op,jump);
-    DATAPATH DATAPATH_3(clk,read_data,instr,reset,alu_control,pc_src,mem_to_reg,alu_src,reg_write,reg_dist,jump,pc,alu_out,write_data,zero);
+    DATAPATH DATAPATH_3(clk,read_data,instr,reset,alu_control,pc_src,mem_to_reg,alu_src,reg_write,reg_dist,jump,instr[10:6],pc,alu_out,write_data,zero);
     and AND15(pc_src,branch,zero_out);
 endmodule
