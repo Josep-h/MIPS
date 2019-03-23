@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2016/11/08 09:54:05
+// Create Date: 2019/03/23 14:04:52
 // Design Name: 
-// Module Name: clkdiv
+// Module Name: EXTEND
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,22 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clkdiv(
-    input mclk,
-    //input clr,
-    //output clk190,
-    //output clk48,
-    output clk1_4hz
+module EXTEND(
+    input [15:0] in,
+    output [31:0] out,
+    input sign
     );
-    reg [25:0]q;
-    always@(posedge mclk)
-    begin
-    //if(clr)
-    //     q<=0;
-    //else
-         q<=q+1;
-    end
-    //assign clk190=q[18];//190hz
-    //assign clk48=q[20];//47.7 
-    assign clk1_4hz=q[25];         
+    wire [31:0] sign_extend,zero_extend;
+    ZERO_EXTEND ZERO_EXTEND_0(in,zero_extend);
+    SIGN_EXTEND SIGN_EXTEDN_1(in,sign_extend);
+    assign out=sign ? zero_extend : sign_extend;
 endmodule

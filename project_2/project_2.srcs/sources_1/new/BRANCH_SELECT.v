@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2016/11/08 09:54:05
+// Create Date: 2019/03/23 14:51:47
 // Design Name: 
-// Module Name: clkdiv
+// Module Name: BRANCH_SELECT
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,22 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clkdiv(
-    input mclk,
-    //input clr,
-    //output clk190,
-    //output clk48,
-    output clk1_4hz
+module BRANCH_SELECT(
+    input zero,less,
+    input beq,bne,bgtz,blez,
+    output brach
     );
-    reg [25:0]q;
-    always@(posedge mclk)
-    begin
-    //if(clr)
-    //     q<=0;
-    //else
-         q<=q+1;
-    end
-    //assign clk190=q[18];//190hz
-    //assign clk48=q[20];//47.7 
-    assign clk1_4hz=q[25];         
+    wire beq_branch,bne_branch,bgtz_branch,blez_branch;
+    assign beq_branch=zero&beq;
+    assign bne_branch=~zero&bne;
+    assign bgtz_branch=~less&~zero&bgtz;
+    assign blez_branch=(less|zero)&blez;
+    assign brach=beq_branch|bne_branch|bgtz_branch|blez_branch;
 endmodule

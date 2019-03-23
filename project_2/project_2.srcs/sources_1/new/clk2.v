@@ -20,22 +20,22 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clkdiv(
+module clkdiv2(
     input mclk,
-    //input clr,
-    //output clk190,
-    //output clk48,
+   // input clr,
+    output clk190,
+    //output clk48
     output clk1_4hz
     );
-    reg [25:0]q;
+    reg [26:0]q;
     always@(posedge mclk)
-    begin
-    //if(clr)
-    //     q<=0;
-    //else
+  //  begin
+   // if(!clr)
+   //      q<=0;
+  //  else
          q<=q+1;
-    end
-    //assign clk190=q[18];//190hz
+  //  end
+    assign clk190=q[17];//190hz
     //assign clk48=q[20];//47.7 
-    assign clk1_4hz=q[25];         
+    assign clk1_4hz=q[26];         
 endmodule

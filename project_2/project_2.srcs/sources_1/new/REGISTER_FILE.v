@@ -39,11 +39,11 @@ module REGISTER_FILE
         begin
             register_file[0]=0;
             register_file[16]=16;
-            register_file[17]=17;
-            register_file[18]=18;
-            register_file[19]=19;
+            register_file[17]=1;
+            register_file[18]=2;
+            register_file[19]=3;
             register_file[20]=20;
-            register_file[21]=21;
+            register_file[21]=0;
         end
 
     always@(posedge clk) //write data to register

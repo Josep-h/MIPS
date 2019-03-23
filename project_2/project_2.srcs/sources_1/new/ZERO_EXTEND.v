@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2016/11/08 09:54:05
+// Create Date: 2019/03/23 14:01:11
 // Design Name: 
-// Module Name: clkdiv
+// Module Name: ZERO_EXTEND
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,22 +20,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clkdiv(
-    input mclk,
-    //input clr,
-    //output clk190,
-    //output clk48,
-    output clk1_4hz
+module ZERO_EXTEND(
+    input [15:0] in,
+    output [31:0] out
     );
-    reg [25:0]q;
-    always@(posedge mclk)
-    begin
-    //if(clr)
-    //     q<=0;
-    //else
-         q<=q+1;
-    end
-    //assign clk190=q[18];//190hz
-    //assign clk48=q[20];//47.7 
-    assign clk1_4hz=q[25];         
+    assign out={16'b0,in};
 endmodule

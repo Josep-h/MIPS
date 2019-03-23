@@ -36,20 +36,17 @@ module DATA_MEMORY (
             RAM[8]=14; //add
             RAM[12]=18; //add
             RAM[16]=32; //add
-            //L1:
             RAM[20]=34; //sw
             RAM[24]=-7; //nop
             RAM[28]=96; //slt......
             RAM[32]=49; //beq......
             RAM[36]=-34; //lw
             RAM[40]=34; //nop
-            
-            //L2:
             RAM[44]=102; //addi
             RAM[48]=52; //addi
             RAM[52]=-14; //bne
         end 
-    assign rd =RAM[a[31:2]]; //??
+    assign rd =RAM[a[31:2]]; 
 
     always@(posedge clk) //write into RAM?
     begin
