@@ -26,6 +26,7 @@ module ALU(
     input [3:0] alu_control,
     input [4:0] shamt,
     output zero,
+    output less,
     output reg [31:0] alu_result
     );
     reg [31:0] tp;
@@ -54,4 +55,5 @@ module ALU(
 
         endcase
         assign zero = alu_result == 0;
+        assign less = alu_result[31]==1;
 endmodule

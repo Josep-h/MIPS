@@ -32,12 +32,15 @@ module MIPS(
     );
     wire [3:0] alu_control; 
     wire [2:0] alu_op;
-    wire pc_src,mem_to_reg,alu_src,reg_dist,reg_write,zero,branch,nbranch,sign;
+    wire pc_src,mem_to_reg,alu_src,reg_dist,reg_write,sign;
     wire jump;
-    wire zero_out;// for bne
-    xor XOR16(zero_out,nbranch,zero);
+    wire less,zero;
+    wire beq,bne,bgtz,blez;
+    // wire zero_out;// for bne
+    // xor XOR16(zero_out,nbranch,zero);
     ALU_DECODER ALU_DECODER_1(alu_op, instr[5:0],alu_control);
-    MAIN_DECODER MAIN_DECODER_2(instr[31:26],mem_to_reg,mem_write,branch,nbranch,alu_src,reg_dist,reg_write,alu_op,jump,sign);
-    DATAPATH DATAPATH_3(clk,read_data,instr,reset,alu_control,pc_src,mem_to_reg,alu_src,reg_write,reg_dist,jump,sign,instr[10:6],pc,alu_out,write_data,zero);
-    and AND15(pc_src,branch,zero_out);
+    MAIN_DECODER MAIN_DECODER_2(instr[31:26],mem_to_reg,mem_write,beq,bne,bgtz,blez,alu_src,reg_dist,reg_write,alu_op,jump,sign);
+    DATAPATH DATAPATH_3(clk,read_data,instr,reset,alu_control,pc_src,mem_to_reg,alu_src,reg_write,reg_dist,jump,sign,instr[10:6],pc,alu_out,write_data,zero,less);
+    // and AND15(pc_src,branch,zero_out);
+    BRANCH_SELECT BRANCH_4(zero,less,beq,bne,bgtz,blez,pc_src);
 endmodule
