@@ -10,6 +10,7 @@ module DATAPATH(
 	input pc_src, mem_to_reg, alu_src,
 	input reg_write, reg_dist,
 	input jump,
+	input sign,
 	input [4:0] shamt,
 	output [31:0] pc,
 	output [31:0] alu_out,
@@ -24,7 +25,7 @@ wire [27:0] pc_jump; //2, 8
 wire [31:0] src_B; //4, 12
 wire [31:0] src_A; //10, 12
 wire [4:0] write_reg; //3, 10
-wire [31:0] sign_extend; //4, 9, 13
+wire [31:0] extend; //4, 9, 13
 wire [31:0] lf_13; //13, 14 
 wire [31:0] pc_plus_4; //1, 7, 14
 
@@ -44,7 +45,7 @@ ADDER ADDER_7(pc,4,pc_plus_4);
 SL2 SL_8(instr,pc_jump); //TODO 
 
 //SIGN EXTEND
-SIGN_EXTEND SIGN_EXTEND_9(instr[15:0],sign_extend);
+EXTEND EXTEND_9(instr[15:0],extend,sign);
 
 //REGISTER FILE
 REGISTER_FILE REGISTER_FILE_10(reg_write,clk,instr[25:21],instr[20:16],write_reg,mem_to_reg_result,src_A,write_data);
@@ -53,7 +54,7 @@ REGISTER_FILE REGISTER_FILE_10(reg_write,clk,instr[25:21],instr[20:16],write_reg
 ALU ALU_12(src_A,src_B,alu_control,shamt,zero,alu_out);
 
 //SL2 13
-SL2 SL_13(sign_extend,lf_13);
+SL2 SL_13(extend,lf_13);
 
 //PC BRANCH
 ADDER ADDER_14(lf_13,pc_plus_4,pc_branch);

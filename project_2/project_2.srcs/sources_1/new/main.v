@@ -120,40 +120,4 @@ module main(
         enable<=enable+1;
       end
 
-    // always@(posedge clk_LED)
-    //     begin
-    //       if(reset==1)
-    //         begin 
-    //           pos_0<=TOP_0.INSTR_MEMORY_2.ct%10;
-    //           pos_1<=(TOP_0.INSTR_MEMORY_2.ct/10)%10;
-    //           pos_2<=(TOP_0.INSTR_MEMORY_2.ct/100)%10;
-    //           pos_3<=0;
-    //         end
-    //       else
-    //         begin
-    //           pos_0<=TOP_0.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[18]%10;
-    //           pos_1<=(TOP_0.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[18]/10)%10;
-    //           pos_2<=(TOP_0.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[18]/100)%10;
-    //           pos_3<=0;
-              
-    //           pos_4<=TOP_0.MIPS_1.pc%10;
-    //           pos_5<=(TOP_0.MIPS_1.pc/10)%10;
-    //           pos_6<=(TOP_0.MIPS_1.pc/100)%10;
-    //           pos_7<=0;
-    //         end
-    //       case(enable)
-    //         2'b000:begin an<=8'b1111_1110; LED<=pos_0_LED; end
-    //         2'b001:begin an<=8'b1111_1101; LED<=pos_1_LED; end
-    //         2'b010:begin an<=8'b1111_1011; LED<=pos_2_LED; end
-    //         2'b010:begin an<=8'b1111_0111; LED<=pos_3_LED; end
-            
-    //         2'b011:begin an<=8'b1110_1111; LED<=pos_4_LED; end
-    //         2'b100:begin an<=8'b1101_1111; LED<=pos_5_LED; end
-    //         2'b101:begin an<=8'b1011_1111; LED<=pos_6_LED; end
-    //         2'b110:begin an<=8'b0111_1111; LED<=pos_7_LED; end
-    //         default enable<=0;
-    //       endcase
-    //       enable<=enable+1;
-    //     end
-
 endmodule

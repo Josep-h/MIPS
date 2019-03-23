@@ -29,29 +29,31 @@ module MAIN_DECODER(
     output alu_src,
     output reg_dist,
     output reg_write,
-    output [1:0] alu_op,
-    output jump
+    output [2:0] alu_op,
+    output jump,
+    output sign
     );
-    reg [9:0] controls;
-    assign {reg_write, reg_dist, alu_src, branch, nbranch, mem_write, mem_reg, alu_op, jump}=controls;
+    reg [10:0] controls;
+    assign {reg_write, reg_dist, alu_src, branch, nbranch, mem_write, mem_reg, alu_op, jump, sign}=controls;
 
     always@(*)
     case(op_code)
-        6'b000000:controls<=10'b1100000100; //R-type
-        6'b100011:controls<=10'b1010001000; //lw
-        6'b101011:controls<=10'b0010010000; //sw
-        6'b000100:controls<=10'b0001000010; //beq
-        6'b000101:controls<=10'b0001100010; //bne
-        6'b001000:controls<=10'b1010000000; //addi
-        6'b001101:controls<=10'b1010000000; //ori
-        6'b001010:controls<=10'b1010000000; //slti
-        6'b001100:controls<=10'b1010000000; //andi
-        6'b000010:controls<=10'b0000000001; //jump
-        
-        6'b001001:controls<=10'b0000000001; //addiu
-        6'b000010:controls<=10'b0000000001; //jump
-        6'b000010:controls<=10'b0000000001; //jump
+        6'b000000:controls<=11'b1100000_010_00; //R-type
+        6'b100011:controls<=11'b1010001_000_00; //lw
+        6'b101011:controls<=11'b0010010_000_00; //sw
+        6'b000100:controls<=11'b0001000_001_00; //beq
+        6'b000101:controls<=11'b0001100_001_00; //bne
+        6'b001000:controls<=11'b1010000_000_00; //addi
+        6'b001101:controls<=11'b1010000_010_01; //ori
+        6'b001010:controls<=11'b1010000_100_00; //slti
+        6'b001100:controls<=11'b1010000_011_01; //andi
+        6'b000010:controls<=11'b0000000_000_10; //jump
 
-        default:  controls<=10'b0000000000; //nop
+        //add instr
+        6'b001001:controls<=11'b1010000_000_01; //addiu
+        6'b001011:controls<=11'b1010000_100_01; //sltiu
+        6'b001110:controls<=11'b1010000_101_01; //xori
+
+        default:  controls<=11'b0000000_000_00; //nop
     endcase
 endmodule
