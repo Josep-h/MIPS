@@ -47,6 +47,11 @@ module MAIN_DECODER(
         6'b001010:controls<=10'b1010000000; //slti
         6'b001100:controls<=10'b1010000000; //andi
         6'b000010:controls<=10'b0000000001; //jump
+        
+        6'b001001:controls<=10'b0000000001; //addiu
+        6'b000010:controls<=10'b0000000001; //jump
+        6'b000010:controls<=10'b0000000001; //jump
+
         default:  controls<=10'b0000000000; //nop
     endcase
 endmodule

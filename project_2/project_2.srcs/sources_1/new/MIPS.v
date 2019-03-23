@@ -30,7 +30,7 @@ module MIPS(
     output [31:0] alu_out,
     output [31:0] write_data
     );
-    wire [2:0] alu_control; 
+    wire [3:0] alu_control; 
     wire [1:0] alu_op;
     wire pc_src,mem_to_reg,alu_src,reg_dist,reg_write,zero,branch,nbranch;
     wire jump;

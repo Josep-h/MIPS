@@ -23,17 +23,18 @@
 module ALU(
     input [31:0] src_A,
     input [31:0] src_B,
-    input [2:0] alu_control,
+    input [3:0] alu_control,
+    //input [4:0] shampt,
     output zero,
     output reg [31:0] alu_result
     );
     reg [31:0] tp;
     always@(*)
         case(alu_control)
-            0:alu_result <= src_A & src_B; //add
+            0:alu_result <= src_A & src_B; //and
             1:alu_result <= src_A | src_B; //or
-            2:alu_result <= src_A + src_B; //+
-            3:;//not used
+            2:alu_result <= src_A + src_B; //add
+            3:alu_result <= ~(src_A|src_B); //nor
             4:alu_result <= src_A & ~src_B;//A and ~B
             5:alu_result <= src_A | ~src_B;//A or ~B
             6:alu_result <= src_A - src_B; //A-B
@@ -42,6 +43,9 @@ module ALU(
                     tp <= src_A - src_B;
                     alu_result <= tp[31];
                 end
+            8:alu_result <= src_A<src_B;  //sltu
+            9:alu_result <= src_A^src_B;  //xor
+            10:alu_result <= src_A^src_B;  //sll
         endcase
         assign zero = alu_result == 0;
 endmodule

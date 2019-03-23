@@ -34,6 +34,7 @@ module main(
     wire clk,clk_LED;
     clkdiv2 CLKDIV_1(mclk,clk_LED,clk);
     TOP TOP_0(clk,reset,load,clear,num);
+
     // always@(posedge clk,posedge reset)
     // begin
     //   if(reset==1)
@@ -77,12 +78,12 @@ module main(
           3'b000:begin an=8'b1111_1110; LED=pos_0_LED; end
           3'b001:begin an=8'b1111_1101; LED=pos_1_LED; end
           3'b010:begin an=8'b1111_1011; LED=pos_2_LED; end
-          3'b010:begin an=8'b1111_0111; LED=pos_3_LED; end
+          3'b011:begin an=8'b1111_0111; LED=pos_3_LED; end
           
-          3'b011:begin an=8'b1110_1111; LED=pos_4_LED; end
-          3'b100:begin an=8'b1101_1111; LED=pos_5_LED; end
-          3'b101:begin an=8'b1011_1111; LED=pos_6_LED; end
-          3'b110:begin an=8'b0111_1111; LED=pos_7_LED; end
+          3'b100:begin an=8'b1110_1111; LED=pos_4_LED; end
+          3'b101:begin an=8'b1101_1111; LED=pos_5_LED; end
+          3'b110:begin an=8'b1011_1111; LED=pos_6_LED; end
+          3'b111:begin an=8'b0111_1111; LED=pos_7_LED; end
           default enable<=0;
         endcase
         enable<=enable+1;

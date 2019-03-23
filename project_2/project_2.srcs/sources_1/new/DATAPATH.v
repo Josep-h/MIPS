@@ -6,7 +6,7 @@ module DATAPATH(
   	input [31:0] instr,
 	input reset,
 	
-	input [2:0] alu_control,
+	input [3:0] alu_control,
 	input pc_src, mem_to_reg, alu_src,
 	input reg_write, reg_dist,
 	input jump,
