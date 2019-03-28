@@ -13,3 +13,9 @@ project_2/project_2.cache/*
 project_2/project_2.cache/wt/*
 project_2/project_2.hw/*
 project_2/project_2.ip_user_files/*
+test/test.runs/*
+test/test.sim/*
+test/test.cache/*
+test/test.cache/wt/*
+test/test.hw/*
+test/test.ip_user_files/*

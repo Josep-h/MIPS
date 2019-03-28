@@ -59,7 +59,6 @@ module INSTR_MEMORY
             RAM[68]=32'b00000010000000001000100000100101; //or
             RAM[72]=32'b00001000000000000000000000000000; //j
             ct=72;
-
         end 
     always@(posedge clk)
         if(reset) // in the mode of reset
