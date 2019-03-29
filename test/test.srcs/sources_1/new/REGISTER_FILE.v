@@ -37,11 +37,11 @@ module REGISTER_FILE
     
     initial
         begin
-            register_file[0]=0;
-            register_file[16]=210;
-            register_file[17]=121;
+            register_file[0]=1;
+            register_file[16]=7'b1110101;
+            register_file[17]=7'b0101100;
             register_file[18]=2;
-            register_file[19]=3;
+            register_file[19]=-3;
             register_file[20]=20;
             register_file[21]=0;
         end

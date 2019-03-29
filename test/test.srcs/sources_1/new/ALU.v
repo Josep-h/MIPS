@@ -35,7 +35,7 @@ module ALU(
             0:alu_result <= src_A & src_B; //and
             1:alu_result <= src_A | src_B; //or
             2:alu_result <= src_A + src_B; //add
-            3:alu_result <= ~(src_A|src_B); //nor
+            3:alu_result <= ~(src_A|src_B);//nor
             4:alu_result <= src_A & ~src_B;//A and ~B
             5:alu_result <= src_A | ~src_B;//A or ~B
             6:alu_result <= src_A - src_B; //A-B
@@ -46,13 +46,12 @@ module ALU(
                 end
             8:alu_result <= src_A<src_B;  //sltu
             9:alu_result <= src_A^src_B;  //xor
-            10:alu_result <= src_A<<shamt;  //sll
-            11:alu_result <= src_A<<src_B;  //slv
-            12:alu_result <= ($signed(src_A))>>>shamt;  //sra
-            13:alu_result <= ($signed(src_A))>>>src_B;  //srav
-            14:alu_result <= src_A>>shamt;  //srl
-            15:alu_result <= src_A>>src_B;  //srlv
-
+            10:alu_result <= src_B<<shamt;  //sll
+            11:alu_result <= src_B<<src_A;  //sllv
+            12:alu_result <= ($signed(src_B))>>>shamt;  //sra
+            13:alu_result <= ($signed(src_B))>>>src_A;  //srav
+            14:alu_result <= src_B>>shamt;  //srl
+            15:alu_result <= src_B>>src_A;  //srlv
         endcase
         assign zero = alu_result == 0;
         assign less = alu_result[31]==1;

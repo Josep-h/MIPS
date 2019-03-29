@@ -37,7 +37,7 @@ module MAIN_DECODER(
 
     always@(*)
     case(op_code)
-        6'b000000:controls<=14'b110_0000_00_010_00; //R-type
+        6'b000000:controls<=14'b110_0000_00_111_00; //R-type
         6'b100011:controls<=14'b101_0000_01_000_00; //lw
         6'b101011:controls<=14'b001_0000_10_000_00; //sw
         6'b000100:controls<=14'b000_1000_00_001_00; //beq
