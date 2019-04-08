@@ -20,3 +20,10 @@ test/test.cache/*
 test/test.cache/wt/*
 test/test.hw/*
 test/test.ip_user_files/*
+
+MultiMips/MultiMips.runs/*
+MultiMips/MultiMips.sim/*
+MultiMips/MultiMips.cache/*
+MultiMips/MultiMips.cache/wt/*
+MultiMips/MultiMips.hw/*
+MultiMips/MultiMips.ip_user_files/*

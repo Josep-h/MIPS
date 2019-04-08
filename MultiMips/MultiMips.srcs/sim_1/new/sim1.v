@@ -25,8 +25,8 @@ module Top_test();
         reg clk;
         reg reset;
         TOP TOP_1(clk,reset);
-        reg [31:0] reg0,reg_s0,reg_s1,reg_s2,reg_s3,reg_s4,reg_s5,pc,instr;
-        reg pc_src,t_branch,t_zero;
+        reg [31:0] reg0,reg_s0,reg_s1,reg_s2,reg_s3,reg_s4,reg_s5,pc,instr,branch_pc;
+        reg pc_src,t_nbranch,t_branch,t_zero;
         always@(*)
             begin
                 reg0=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[0];
@@ -38,8 +38,10 @@ module Top_test();
                 reg_s5=TOP_1.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[21];
                 pc=TOP_1.INSTR_MEMORY_2.a;
                 instr=TOP_1.INSTR_MEMORY_2.rd;
+                branch_pc=TOP_1.MIPS_1.DATAPATH_3.pc_branch;
                 pc_src=TOP_1.MIPS_1.pc_src;
-                t_branch=TOP_1.MIPS_1.beq;
+                t_branch=TOP_1.MIPS_1.branch;
+                t_nbranch=TOP_1.MIPS_1.nbranch;
                 t_zero=TOP_1.MIPS_1.zero;
             end
         initial

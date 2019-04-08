@@ -20,14 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module INSTR_MEMORY 
-    (input [31:0] a, 
-    output [31:0] rd,
-    input load,
-    input clear,
-    input reset,
-    input clk,
-    input [11:0] num
+module DATA_INSTR_MEMORY 
+    (
+        input clk,
+        input [31:0] a, 
+        input write_enable,
+        input  [31:0] write_data,
+        output [31:0] read_data,
+
+        input load,
+        input clear,
+        input reset,
+        input [11:0] num
     );
     reg [31:0] RAM[255:0]; //memory of the instruction
     reg [7:0] ct;
@@ -65,5 +69,13 @@ module INSTR_MEMORY
             RAM[88]=32'b000001_10011_00000_11111_11111_111110; //bltz
             RAM[92]=32'b000001_10011_10000_11111_11111_111110; //bltzal
         end 
-    assign rd=RAM[a];
+    assign read_data=RAM[a];
+    
+    // assign rd =RAM[a[31:2]]; 
+
+    always@(posedge clk) //write into RAM?
+    begin
+        if(write_enable)
+            RAM[a[31:2]]<=write_data;
+    end
 endmodule
