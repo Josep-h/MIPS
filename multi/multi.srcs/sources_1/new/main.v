@@ -37,18 +37,6 @@ module main(
     clkdiv2 CLKDIV_1(mclk,clk_LED,clk);
     TOP TOP_0(clk,reset,load,clear,num);
 
-    // always@(posedge clk,posedge reset)
-    // begin
-    //   if(reset==1)
-    //     pc<=TOP_0.INSTR_MEMORY_2.ct;
-    //   else 
-    //     begin 
-    //       reg_2<=TOP_0.MIPS_1.DATAPATH_3.REGISTER_FILE_10.register_file[18];
-    //       pc<=TOP_0.INSTR_MEMORY_2.RAM[TOP_0.MIPS_1.pc];
-    //     end
-    // end
-
-
     reg [2:0] enable;
     wire [6:0] pos_0_LED,pos_1_LED,pos_2_LED,pos_3_LED,pos_4_LED,pos_5_LED,pos_6_LED,pos_7_LED; //after LED and for state=1
     // reg [3:0] pos_0_1,    pos_1_1,    pos_2_1,    pos_3_1;

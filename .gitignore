@@ -21,9 +21,9 @@ test/test.cache/wt/*
 test/test.hw/*
 test/test.ip_user_files/*
 
-MultiMips/MultiMips.runs/*
-MultiMips/MultiMips.sim/*
-MultiMips/MultiMips.cache/*
-MultiMips/MultiMips.cache/wt/*
-MultiMips/MultiMips.hw/*
-MultiMips/MultiMips.ip_user_files/*
+multi/multi.runs/*
+multi/multi.sim/*
+multi/multi.cache/*
+multi/multi.cache/wt/*
+multi/multi.hw/*
+multi/multi.ip_user_files/*
