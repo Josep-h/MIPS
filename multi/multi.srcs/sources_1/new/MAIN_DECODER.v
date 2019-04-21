@@ -8,10 +8,14 @@ module MAIN_DECODER(
     output ir_write, // enable for write in register:instr
     output reg_write, //enable for write in register file
     output alu_srca, //0 choose pc as input while 1 use read data
-    output branch, //if the instr is branch
+    output [3:0] branch, //if the instr is branch
     output IorD, //0 choose pc as input to read next instr
-    output mem_to_reg, // 0 choose read data as destination, 1 choose the output of ALU
-    output reg_dist, 
+    output [1:0] mem_to_reg, // 0 choose read data as destination, 1 choose the output of ALU
+    output [1:0] reg_dist, 
+
+    //new
+    output sign,
+
     output [1:0] alu_srcb,
     output [1:0] pc_src,
     output [2:0] alu_op
@@ -25,11 +29,17 @@ module MAIN_DECODER(
     parameter MEMWR   =5; //State 5
     parameter RTYPEEX =6; //State 5
     parameter RTYPEWB =7; //State 5
+    
     parameter BEQEX   =8; //State 6
+    parameter BNEEX   =13; //state 11
+    parameter BGTZEX  =15; //State 6
+    parameter BLEZEX  =16; //State 6
+    
     parameter ADDIEX  =9; //State 7
     parameter ADDIWB  =10; //State 8
     parameter JEX     =11; //State 9
-    parameter JALX    =12; //State 9
+    parameter JALEX   =12; //State 10
+    parameter ADDIUEX =14; //state 12
 
     parameter RTYPE      =6'b000000;
     
@@ -53,7 +63,7 @@ module MAIN_DECODER(
     parameter JAL        =6'b000011;
 
     reg [3:0] state,nextstate;
-    reg [15:0] controls;
+    reg [19:0] controls;
 
     always@(posedge clk, posedge reset)
         if(reset) state<=FETCH;
@@ -66,22 +76,23 @@ module MAIN_DECODER(
             DECODE: case(op_code)
                         RTYPE:     nextstate=RTYPEEX;
                         ADDI:      nextstate=ADDIEX;
-                        // ADDIU:     nextstate=ADDIEX;
-                        // SLTI:      nextstate=ADDIEX;
-                        // SLTIU:     nextstate=ADDIEX;
-                        // ORI:       nextstate=ADDIEX;
-                        // ANDI:      nextstate=ADDIEX;
-                        // XORI:      nextstate=ADDIEX;
+                        SLTI:      nextstate=ADDIEX;
+
+                        ADDIU:     nextstate=ADDIUEX;
+                        SLTIU:     nextstate=ADDIUEX;
+                        ORI:       nextstate=ADDIUEX;
+                        ANDI:      nextstate=ADDIUEX;
+                        XORI:      nextstate=ADDIUEX;
 
                         LW:        nextstate=MEMADR;
                         SW:        nextstate=MEMADR;
 
                         BEQ:       nextstate=BEQEX;
-                        // BNE:       nextstate=BEQEX;
-                        // BGTZ:      nextstate=BEQEX;
-                        // BLEZ:      nextstate=BEQEX;
+                        BNE:       nextstate=BNEEX;
+                        BGTZ:      nextstate=BGTZEX;
+                        BLEZ:      nextstate=BLEZEX;
 
-                        // JAL:       nextstate=JALEX;                        
+                        JAL:       nextstate=JALEX;                        
                         JUMP:      nextstate=JEX;
                     endcase
             MEMADR: case(op_code)
@@ -95,30 +106,41 @@ module MAIN_DECODER(
             RTYPEEX:nextstate=RTYPEWB;
             RTYPEWB:nextstate=FETCH;
             BEQEX:  nextstate=FETCH;
+            BNEEX:  nextstate=FETCH;
+            BGTZEX: nextstate=FETCH;
+            BLEZEX: nextstate=FETCH;
             ADDIEX: nextstate=ADDIWB;
+            ADDIUEX:nextstate=ADDIWB;
             ADDIWB: nextstate=FETCH;
             JEX:    nextstate=FETCH;
-            // JALX:   nextstate=FETCH;
+            JALEX:  nextstate=JEX;
         endcase
     end 
-
-    assign {pc_write,mem_write,ir_write,reg_write,alu_srca,branch,IorD,mem_to_reg,reg_dist,alu_srcb,pc_src,alu_op}=controls;
+    //brach: bne,beq
+    assign {pc_write,mem_write,ir_write,reg_write,alu_srca,branch,IorD,mem_to_reg,reg_dist,alu_srcb,pc_src,alu_op,sign}=controls;
     always@(*)
     begin
         case(state)
-            FETCH:    controls=16'b1010_00000_01_00_000;
-            DECODE:   controls=16'b0000_00000_11_00_000;
-            MEMADR:   controls=16'b0000_10000_10_00_000;
-            MEMRD:    controls=16'b0000_00100_00_00_000;
-            MEMWB:    controls=16'b0001_00010_00_00_000;
-            MEMWR:    controls=16'b0100_00100_00_00_000;
-            RTYPEEX:  controls=16'b0000_10000_00_00_111;
-            RTYPEWB:  controls=16'b0001_00001_00_00_000;
-            BEQEX:    controls=16'b0000_11000_00_01_001;
-            ADDIEX:   controls=16'b0000_10000_10_00_000;
-            ADDIWB:   controls=16'b0001_00000_00_00_000;
-            JEX:      controls=16'b1000_00000_00_10_000;
-            default:  controls=16'hxxxx;
+            FETCH:    controls=20'b1010_0_0000_0_00_00_01_00_000_0;
+            DECODE:   controls=20'b0000_0_0000_0_00_00_11_00_000_0;
+            MEMADR:   controls=20'b0000_1_0000_0_00_00_10_00_000_0;
+            MEMRD:    controls=20'b0000_0_0000_1_00_00_00_00_000_0;
+            MEMWB:    controls=20'b0001_0_0000_0_01_00_00_00_000_0;
+            MEMWR:    controls=20'b0100_0_0000_1_00_00_00_00_000_0;
+            RTYPEEX:  controls=20'b0000_1_0000_0_00_00_00_00_111_0;
+            RTYPEWB:  controls=20'b0001_0_0000_0_00_01_00_00_000_0;
+
+            BEQEX:    controls=20'b0000_1_0001_0_00_00_00_01_001_0;
+            BNEEX:    controls=20'b0000_1_0010_0_00_00_00_01_001_0;
+            BGTZEX:   controls=20'b0000_1_0100_0_00_00_00_01_001_0;
+            BLEZEX:   controls=20'b0000_1_1000_0_00_00_00_01_001_0;
+            
+            ADDIEX:   controls=20'b0000_1_0000_0_00_00_10_00_000_0;
+            ADDIUEX:  controls=20'b0000_1_0000_0_00_00_10_00_000_1;
+            ADDIWB:   controls=20'b0001_0_0000_0_00_00_00_00_000_0;
+            JEX:      controls=20'b1000_0_0000_0_00_00_00_10_000_0;
+            JALEX:    controls=20'b0001_0_0000_0_10_10_00_00_000_0;
+            default:  controls=20'hxxxx;
             // JALX:     controls=15'b
         endcase
     end

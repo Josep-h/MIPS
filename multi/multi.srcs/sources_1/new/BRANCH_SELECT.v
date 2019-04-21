@@ -22,16 +22,18 @@
 
 module BRANCH_SELECT(
     input zero,less,
-    input beq,bne,bgtz,blez,bgez,bltz,
-    output branch
+    input [3:0] branch,
+    output branch_sig
     );
-    wire beq_branch,bne_branch,bgtz_branch,blez_branch,bgez_branch,bltz_branch;
-    assign beq_branch=zero&beq;
-    assign bne_branch=~zero&bne;
-    assign bgtz_branch=~less&~zero&bgtz;
-    assign blez_branch=(less|zero)&blez;
+    wire beq_branch,bne_branch;
+    // wire bgtz_branch,blez_branch,bgez_branch,bltz_branch;
+    assign beq_branch=zero&branch[0];
+    assign bne_branch=~zero&branch[1];
+    assign bgtz_branch=~less&~zero&branch[2];
+    assign blez_branch=(less|zero)&branch[3];
 
-    assign bgez_branch=bgez&(~less);
-    assign bltz_branch=bltz&less;
-    assign branch=beq_branch|bne_branch|bgtz_branch|blez_branch|bgez_branch|bltz_branch;
+    // assign bgez_branch=bgez&(~less);
+    // assign bltz_branch=bltz&less;
+    // assign branch=beq_branch|bne_branch|bgtz_branch|blez_branch|bgez_branch|bltz_branch;
+    assign branch=beq_branch|bne_branch|bgtz_branch|blez_branch;
 endmodule
